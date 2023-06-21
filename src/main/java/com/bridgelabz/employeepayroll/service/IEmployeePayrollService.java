@@ -10,6 +10,6 @@ public interface IEmployeePayrollService {
     EmployeePayrollData getEmployeeDataById(int empId);
     EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO empPayrollDTO);
 
-    EmployeePayrollData updateEmployeePayrollData(EmployeePayrollDTO empPayrollDTO);
+    EmployeePayrollData updateEmployeePayrollData(int empId,EmployeePayrollDTO empPayrollDTO);
     void deleteEmployeePayrollData(int empId);
 }
