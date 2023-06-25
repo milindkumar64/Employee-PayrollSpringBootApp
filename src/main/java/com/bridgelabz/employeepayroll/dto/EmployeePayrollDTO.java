@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmployeePayrollDTO {
 
-    //@Pattern(regexp = "^[A-Z]{1}[A-Za-z\\s]{2,}$", message = "Employee name Invalid")
+    @Pattern(regexp = "^[A-Z]{1}[A-Za-z\\s]{2,}$", message = "Employee name Invalid")
     String name;
-    @Size(min = 20000,max = 100000,message ="salary is too less like TCS employee")
+    @Size(min = 20000,max = 100000,message ="Sorry bro!,ur salary is too less like TCS employee")
     long salary;
 }
