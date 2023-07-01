@@ -21,9 +21,8 @@ public class EmployeePayrollController {
 
     @Autowired
     private IEmployeePayrollService employeePayrollService;
-    @RequestMapping(value = {"","/","/get"}) // by default it will take GetMethod
+    @GetMapping("/get") // by default it will take GetMethod
     public ResponseEntity<ResponseDTO> getEmployeePayrollData(){
-
         List<EmployeePayrollData> empDataList = employeePayrollService.getEmployeePayrollData();
         ResponseDTO respDTO = new ResponseDTO("Get call successful",empDataList );
         return new ResponseEntity<ResponseDTO>(respDTO,HttpStatus.OK);
@@ -34,6 +33,12 @@ public class EmployeePayrollController {
         ResponseDTO respDTO = new ResponseDTO("Get call for ID successful", empData);
         return new ResponseEntity<ResponseDTO>(respDTO,HttpStatus.OK);
     }
+    @GetMapping("/department/{department}")
+    public ResponseEntity<ResponseDTO> getEmployeePayrollData(@PathVariable String department){
+        List<EmployeePayrollData> empDataList=employeePayrollService.getEmployeesByDepartment(department);
+        ResponseDTO responseDTO= new ResponseDTO("Get departments for employee: ",empDataList);
+        return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
+    }
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> createEmployeePayrollData(@Valid @RequestBody EmployeePayrollDTO empPayrollDTO ){
         log.info("Employee DTO: "+empPayrollDTO.toString());
@@ -43,7 +48,7 @@ public class EmployeePayrollController {
     }
     @PutMapping("/update/{empId}")
     public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@Valid @PathVariable int empId, @RequestBody EmployeePayrollDTO empPayrollDTO){
-        EmployeePayrollData empPayrollData = employeePayrollService.updateEmployeePayrollData(empId,empPayrollDTO);
+        EmployeePayrollData empPayrollData = employeePayrollService.updateEmployeePayrollData((empId),empPayrollDTO);
         ResponseDTO respDTO = new ResponseDTO("Updated Employee Payroll data Sucessful",empPayrollData);
         return new ResponseEntity<>(respDTO,HttpStatus.OK);
     }
