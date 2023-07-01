@@ -9,11 +9,10 @@ import org.springframework.context.ApplicationContext;
 @Slf4j
 public class EmployeepayrollApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 
 		ApplicationContext context =  SpringApplication.run(EmployeepayrollApplication.class, args);
 		log.info("Employee payroll app started in {} Environment",context.getEnvironment().getProperty("environment"));
 		log.info("Employee Payroll DB User is {} ",context.getEnvironment().getProperty("spring.datasource.username"));
 	}
-
 }

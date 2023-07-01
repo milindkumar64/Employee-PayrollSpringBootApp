@@ -5,6 +5,7 @@ import com.bridgelabz.employeepayroll.dto.ResponseDTO;
 import com.bridgelabz.employeepayroll.model.EmployeePayrollData;
 import com.bridgelabz.employeepayroll.service.IEmployeePayrollService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/employeepayrollservice")
 public class EmployeePayrollController {
 
@@ -21,6 +23,7 @@ public class EmployeePayrollController {
     private IEmployeePayrollService employeePayrollService;
     @RequestMapping(value = {"","/","/get"}) // by default it will take GetMethod
     public ResponseEntity<ResponseDTO> getEmployeePayrollData(){
+
         List<EmployeePayrollData> empDataList = employeePayrollService.getEmployeePayrollData();
         ResponseDTO respDTO = new ResponseDTO("Get call successful",empDataList );
         return new ResponseEntity<ResponseDTO>(respDTO,HttpStatus.OK);
@@ -33,6 +36,7 @@ public class EmployeePayrollController {
     }
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> createEmployeePayrollData(@Valid @RequestBody EmployeePayrollDTO empPayrollDTO ){
+        log.info("Employee DTO: "+empPayrollDTO.toString());
         EmployeePayrollData empPayrollData = employeePayrollService.createEmployeePayrollData(empPayrollDTO);
         ResponseDTO respDTO = new ResponseDTO("Created Employee Pyroll data sucessfully",empPayrollData);
         return new ResponseEntity<ResponseDTO> (respDTO,HttpStatus.OK);
